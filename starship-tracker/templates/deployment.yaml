@@ -23,6 +23,16 @@ spec:
               value: {{ .Values.env.GALAXY_NAME | quote }}
             - name: STARSHIP_API_ENDPOINT
               value: {{ .Values.env.STARSHIP_API_ENDPOINT | quote }}
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "starship-tracker.fullname" . }}-secret
+                  key: api-key
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "starship-tracker.fullname" . }}-secret
+                  key: db-password
           ports:
             - containerPort: 8080
           resources:
