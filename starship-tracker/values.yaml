@@ -1,0 +1,31 @@
+image:
+  repository: example.com/starship-tracker
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+replicaCount: 3
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations: {}
+  host: starship-tracker.local
+  paths:
+    - /
+  tls: []
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+env:
+  GALAXY_NAME: "Milky Way"
+  STARSHIP_API_ENDPOINT: "https://api.galaxy-tracker.example.com"
